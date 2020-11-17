@@ -1,0 +1,14 @@
+// подключаем шрифт через font-face
+.font-face(@font-family, @font-weight, @font-path) {
+    @font-face {
+        font-family: @font-family;
+        font-weight: @font-weight;
+        font-style: normal;
+        font-stretch: normal;
+        src: url(@font-path) format('woff2');
+    }
+}
+
+body {
+    font-family: Arial, sans-serif;
+}

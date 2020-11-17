@@ -1,0 +1,50 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    padding: 20px;
+
+    background-color: @custom-gray-light;
+    border-radius: 10px;
+
+    &__title {
+        font-size: 24px;
+        align-self: center;
+        margin-bottom: 20px;
+    }
+
+    &__element {
+        display: flex;
+        justify-content: flex-end;
+
+        &:not(:last-child) {
+            margin-bottom: 15px;
+        }
+
+        &-text {
+            text-transform: capitalize;
+            margin-right: 12px;
+            line-height: 30px;
+        }
+
+        &-input {
+            border: 2px solid @custom-gray;
+            height: 30px;
+            width: 250px;
+        }
+    }
+
+    &__submit {
+        cursor: pointer;
+        line-height: 30px;
+        height: 30px;
+        width: 50px;
+        background-color: @custom-green-button;
+        border: none;
+        align-self: flex-end;
+
+        &:active {
+            background-color: @custom-green-button-dark;
+        }
+    }
+}
