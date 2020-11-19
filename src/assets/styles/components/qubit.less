@@ -1,6 +1,9 @@
 .qubit {
     height: 120px;
     width: 100px;
+    background-color: @custom-white;
+
+    cursor: pointer;
 
     display: flex;
     flex-direction: column;
@@ -13,6 +16,7 @@
     &__image {
         height: 60px;
         width: 60px;
+        user-select: none;
 
         position: relative;
     }
@@ -21,5 +25,10 @@
         height: 20px;
         margin-top: 10px;
         font-size: 20px;
+        user-select: none;
+    }
+
+    &._hidden {
+        visibility: hidden;
     }
 }

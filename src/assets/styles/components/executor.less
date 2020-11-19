@@ -1,0 +1,46 @@
+.executor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__select {
+        width: 300px;
+        height: 50px;
+
+        font-size: 20px;
+        border: 2px solid black;
+        border-radius: 5px;
+        outline: none;
+
+        text-align-last: center;
+
+        background-color: @custom-white;
+        margin-bottom: 40px;
+    }
+
+    &__container {
+        display: flex;
+    }
+
+    &__holder {
+        height: 120px;
+        width: 100px;
+
+        &:not(:last-child) {
+            margin-right: 40px;
+        }
+
+        &-dummy {
+            height: 120px;
+            width: 100px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            border: 2px dashed @custom-gray;
+            border-radius: 5px;
+        }
+    }
+}

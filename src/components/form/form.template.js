@@ -24,13 +24,20 @@ export function template(ctx) {
         form.append(form__element);
     });
 
-    let form__submit = createElement('button', ['form__submit']);
-    // form__submit.setAttribute('type', 'submit');
-    form__submit.innerHTML = 'Submit';
-    form.append(form__submit)
+    let form__buttons = createElement('div', ['form__buttons']);
+    form.append(form__buttons);
+
+    let form__button_discard = createElement('button', ['form__button', '_discard']);
+    form__button_discard.textContent = 'Discard';
+
+    let form__button_submit = createElement('button', ['form__button', '_submit']);
+    form__button_submit.textContent = 'Submit';
+
+    form__buttons.append(form__button_discard, form__button_submit);
 
     return {
         form,
-        form__submit
+        form__button_submit,
+        form__button_discard
     };
 }

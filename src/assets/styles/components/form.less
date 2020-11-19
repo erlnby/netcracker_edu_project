@@ -34,17 +34,34 @@
         }
     }
 
-    &__submit {
+    &__button {
         cursor: pointer;
         line-height: 30px;
         height: 30px;
         width: 50px;
-        background-color: @custom-green-button;
+
         border: none;
         align-self: flex-end;
 
-        &:active {
-            background-color: @custom-green-button-dark;
+        &._submit {
+            background-color: @custom-green-button;
+
+            &:active {
+                background-color: @custom-green-button-dark;
+            }
         }
+
+        &._discard {
+            background-color: @custom-red-button;
+
+            &:active {
+                background-color: @custom-red-button-dark;
+            }
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
     }
 }

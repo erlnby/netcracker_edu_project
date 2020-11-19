@@ -10,10 +10,10 @@
     &__qubits {
         display: flex;
         justify-content: center;
+        margin-bottom: 30px;
 
         &-item {
-            cursor: pointer;
-            transition: box-shadow 0.3s;
+            transition: box-shadow 0.3s ease-out;
 
             &:hover {
                 box-shadow: 0 0 5px rgba(0,0,0,.3);
@@ -21,6 +21,10 @@
 
             &:not(:last-child) {
                 margin-right: 20px;
+            }
+
+            &._hidden {
+                display: none;
             }
         }
     }
@@ -35,5 +39,9 @@
 
         position: absolute;
         background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    &__executor {
+        align-self: center;
     }
 }

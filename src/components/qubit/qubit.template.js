@@ -4,6 +4,7 @@ import arrow from "../../assets/icons/up-arrow.svg"
 
 export function template(ctx) {
     let qubit = createElement('div', ['qubit']);
+    qubit.dataset.qubitId = ctx.id;
 
     let qubit__name = createElement('div', ['qubit__name']);
     qubit__name.innerHTML = ctx.name
