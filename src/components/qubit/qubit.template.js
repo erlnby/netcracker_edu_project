@@ -6,13 +6,11 @@ export function template(ctx) {
     let qubit = createElement('div', ['qubit']);
     qubit.dataset.qubitId = ctx.id;
 
-    let qubit__name = createElement('div', ['qubit__name']);
-    qubit__name.innerHTML = ctx.name
+    let qubitName = createElement('div', ['qubit__name'], ctx.name);
 
-    let qubit__image = createElement('img', ['qubit__image']);
-    qubit__image.style.transform = `rotate(${ctx.angle}deg)`;
-    qubit__image.setAttribute('src', arrow);
+    let qubitImage = createElement('img', ['qubit__image'], null, {src: arrow});
+    qubitImage.style.transform = `rotate(${ctx.angle}deg)`;
 
-    qubit.append(qubit__image, qubit__name);
+    qubit.append(qubitImage, qubitName);
     return qubit;
 }

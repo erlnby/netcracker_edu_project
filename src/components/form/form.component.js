@@ -9,25 +9,35 @@ export default class FormComponent extends Block {
     }
 
     render() {
-        let {form, form__button_submit, form__button_discard} = template(this.props)
+        let {form, formButtonSubmit, formButtonDiscard} = template(this.props)
 
-        form__button_submit.addEventListener('click', (event) => {
-            event.preventDefault();
+        form.addEventListener('click', event => {
+            let formButton = event.target.closest('.form__button')
 
-            let values = {};
-            Array.from(form.elements)
-                .filter((element) => element.tagName === 'INPUT')
-                .forEach((element) => {
-                    values[element.name] = element.value;
-                });
+            if (formButton) {
+                if (formButton.classList.contains('_submit')) {
+                    let fields = Array.from(form.elements)
+                        .filter((element) => element.tagName === 'INPUT')
+                        .map((element) => [element.name, element.value || element.placeholder])
 
-            this.submit(values);
+                    if (fields.every((element) => {
+                        return this.props.fields.find((value) => {
+                            return value.name === element[0]
+                        }).validator(element[1]);
+                    })) {
+                        this.submit(Object.fromEntries(fields));
+                    } else {
+                        alert('Wrong input');
+                    }
+
+                } else if (formButton.classList.contains('_discard')) {
+                    this.discard();
+                }
+            }
         })
 
-        form__button_discard.addEventListener('click', (event) => {
-            event.preventDefault();
-
-            this.discard();
+        form.addEventListener('submit', event => {
+            event.preventDefault()
         })
 
         return form;

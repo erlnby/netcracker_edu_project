@@ -10,7 +10,6 @@ class Block {
     }
 
     _render() {
-        console.log(`_render`);
         const block = this.render();
         this._element = block;
     }

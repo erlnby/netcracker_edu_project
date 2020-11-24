@@ -4,57 +4,54 @@ import plus from "../../assets/icons/plus.svg"
 import FormComponent from "../form/form.component";
 import HeaderComponent from "../header/header.component";
 import ExecutorComponent from "../executor/executor.component";
+import FormValidator from "../../utils/FormValidator";
 
 export function template(ctx) {
     let calculator = createElement('div', ['calculator']);
 
-    let calculator__header = createElement('div', ['calculator__header'])
-    calculator__header.append(new HeaderComponent().render());
-    calculator.append(calculator__header);
+    let calculatorHeader = createElement('div', ['calculator__header'])
+    calculatorHeader.append(new HeaderComponent().render());
+    calculator.append(calculatorHeader);
 
-    let calculator__qubits = createElement('ul', ['calculator__qubits']);
+    let calculatorQubits = createElement('ul', ['calculator__qubits']);
 
     ctx.qubits.forEach((value) => {
-        calculator__qubits.append(templateQubitsItem({value, remove: ctx.qubitRemove}));
+        let {remove, startMove, endMove, abortMove} = ctx
+        calculatorQubits.append(templateQubitsItem({remove, startMove, endMove, abortMove, value}));
     });
 
     let adder = templateAdder();
-    calculator__qubits.append(adder);
-    calculator.append(calculator__qubits);
+    calculatorQubits.append(adder);
+    calculator.append(calculatorQubits);
 
     let executor = templateExecutor();
-    let calculator__executor = createElement('div', ['calculator__executor']);
-    calculator__executor.append(executor);
-    calculator.append(calculator__executor);
+    let calculatorExecutor = createElement('div', ['calculator__executor']);
+    calculatorExecutor.append(executor);
+    calculator.append(calculatorExecutor);
 
     return {
         calculator,
-        calculator__qubits
+        calculatorQubits
     };
 }
 
-export function templateQubitsItem({value, remove}) {
-    let qubit = new QubitComponent(remove ,value);
-    let qubits__item = createElement('li', ['calculator__qubits-item'])
-    qubits__item.append(qubit.render());
-    return qubits__item;
+export function templateQubitsItem({value}) {
+    let qubit = new QubitComponent('calculator__qubits-item', value);
+    let qubitsItem = createElement('li', ['calculator__qubits-item'])
+    qubitsItem.append(qubit.render());
+    return qubitsItem;
 }
 
 export function templateAdder() {
     let adder = createElement('div', ['adder']);
+    let adderName = createElement('div', ['adder__text'], 'Add');
+    let adderImage = createElement('img', ['adder__image'], null, {src: plus});
+    adder.append(adderImage, adderName);
 
-    let adder__name = createElement('div', ['adder__text']);
-    adder__name.innerHTML = 'Add'
+    let qubitsItem = createElement('li', ['calculator__qubits-item']);
+    qubitsItem.append(adder);
 
-    let adder__image = createElement('img', ['adder__image']);
-    adder__image.setAttribute('src', plus);
-
-    adder.append(adder__image, adder__name);
-
-    let qubits__item = createElement('li', ['calculator__qubits-item']);
-    qubits__item.append(adder);
-
-    return qubits__item;
+    return qubitsItem;
 }
 
 export function templateForm(submit, discard) {
@@ -63,18 +60,20 @@ export function templateForm(submit, discard) {
         fields: [
             {
                 name: 'name',
-                value: 'Qubit'
+                value: 'Qubit',
+                validator: FormValidator.text()
             },
             {
                 name: 'direction',
-                value: '0'
+                value: '0',
+                validator: FormValidator.number(0, 360)
             }
         ]
     }, submit, discard);
 
-    let qubits__form = createElement('div', ['calculator__form'])
-    qubits__form.append(form.render());
-    return qubits__form;
+    let qubitsForm = createElement('div', ['calculator__form'])
+    qubitsForm.append(form.render());
+    return qubitsForm;
 }
 
 function templateExecutor() {

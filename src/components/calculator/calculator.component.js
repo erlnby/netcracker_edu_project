@@ -1,26 +1,22 @@
 import Block from '../../modules/block';
 import {template, templateForm, templateQubitsItem} from "./calculator.template";
-import Qubits from "../../utils/qubits";
+import QubitService from "../../services/qubit.service";
+import QubitComponent from "../qubit/qubit.component";
 import createElement from "../../utils/createElement";
 
 export default class CalculatorComponent extends Block {
     render() {
 
-        let qubits = Qubits.getAll();
+        let qubits = QubitService.getAll();
 
-        let qubitRemove = (id) => {
-            let qubit = this._element.querySelector(`.qubit[data-qubit-id="${id}"]`);
-            let qubitsItem = qubit.parentElement;
-            qubitsItem.remove();
-            Qubits.remove(id);
-        }
+        let qubitAction = QubitComponent.HOLDERS['calculator__qubits-item'];
 
-        let {calculator, calculator__qubits} = template({
+        let {calculator, calculatorQubits} = template({
             qubits,
-            qubitRemove
+            ...qubitAction
         })
 
-        calculator__qubits.addEventListener('click', (event) => {
+        calculatorQubits.addEventListener('click', (event) => {
             let target = event.target;
             if (target.closest('.adder')) {
                 let submit = (values) => {
@@ -30,11 +26,11 @@ export default class CalculatorComponent extends Block {
                         angle: Number(values.direction)
                     }
 
-                    Qubits.add(qubit);
+                    QubitService.add(qubit);
 
-                    let qubitElement = templateQubitsItem({value: qubit, remove: qubitRemove});
+                    let qubitElement = templateQubitsItem({value: qubit});
 
-                    calculator__qubits.lastChild.before(qubitElement);
+                    calculatorQubits.lastChild.before(qubitElement);
                     let form = calculator.querySelector('.calculator__form');
                     form.remove();
                 }
@@ -50,22 +46,5 @@ export default class CalculatorComponent extends Block {
         });
 
         return calculator;
-    }
-
-    static addQubit(qubit) {
-        let calculator__qubits = document.querySelector('.calculator__qubits');
-
-        let remove = (id) => {
-            let qubitsItem = qubit.parentElement;
-            qubitsItem.remove();
-            Qubits.remove(id);
-        }
-        qubit.remove = remove;
-
-        let qubits__item = createElement('li', ['calculator__qubits-item']);
-        qubits__item.append(qubit);
-
-
-        calculator__qubits.lastChild.before(qubits__item);
     }
 }

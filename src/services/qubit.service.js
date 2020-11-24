@@ -1,10 +1,17 @@
-export default class Qubits {
+export default class QubitService {
+    static _qubits = null
+
     static getAll() {
-        let qubits = window.localStorage.getItem('qubits')
-        return JSON.parse(qubits) ?? [];
+        if (!this._qubits) {
+            let qubits = window.localStorage.getItem('qubits')
+            this._qubits = JSON.parse(qubits) ?? []
+        }
+
+        return this._qubits
     }
 
-    static setAll(qubits) {
+    static _sync(qubits) {
+        this._qubits = qubits
         localStorage.setItem('qubits', JSON.stringify(qubits));
     }
 
@@ -20,13 +27,14 @@ export default class Qubits {
             ...qubit
         })
 
-        this.setAll(qubits);
+        this._sync(qubits);
     }
 
     static remove(id) {
         let qubits = this.getAll();
         console.log(id);
 
-        this.setAll(qubits.filter(qubit => qubit.id != id));
+
+        this._sync(qubits.filter(qubit => qubit.id != id));
     }
 }

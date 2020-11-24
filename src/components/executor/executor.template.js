@@ -3,37 +3,33 @@ import createElement from "../../utils/createElement";
 export function template(ctx) {
     let executor = createElement('div', ['executor']);
 
-    let executor__select = createElement('select', ['executor__select']);
+    let executorSelect = createElement('select', ['executor__select']);
 
-    let invite = createElement('option', ['executor__option']);
-    invite.setAttribute('value', '');
-    invite.textContent = 'Select operation...';
-    invite.setAttribute('disabled', 'true');
-    invite.setAttribute('selected', 'true');
-    invite.setAttribute('hidden', 'true');
-    executor__select.append(invite);
+    let invite = createElement('option', ['executor__option'], 'Select operation...', {
+        value: '',
+        disabled: 'true',
+        selected: 'true',
+        hidden: 'true'
+    });
+    executorSelect.append(invite);
 
     ctx.operations.forEach((operation => {
-        let executor__option = createElement('option', ['executor__option']);
-        executor__option.setAttribute('value', operation.name);
-        executor__option.textContent = operation.name;
-        executor__select.append(executor__option);
+        let executorOption = createElement('option', ['executor__option'], operation.name, {value: operation.name});
+        executorSelect.append(executorOption);
     }));
-    executor.append(executor__select);
+    executor.append(executorSelect);
 
-    let executor__container = createElement('div', ['executor__container']);
-    executor.append(executor__container);
+    let executorContainer = createElement('div', ['executor__container']);
+    executor.append(executorContainer);
+
+    let executorButton = createElement('button', ['executor__button', '_hidden'], 'Calculate', {disabled: 'true'})
+    executor.append(executorButton)
 
 
-
-    return {executor, executor__select, executor__container};
+    return {executor, executorSelect, executorContainer, executorButton};
 }
 
 export function templateHolder() {
-    let executor__holder = createElement('div', ['executor__holder']);
-
-    let executor__holderDummy = createElement('div', ['executor__holder-dummy']);
-    executor__holder.append(executor__holderDummy);
-
-    return executor__holder;
+    let executorHolder = createElement('div', ['executor__holder', '_holder']);
+    return executorHolder;
 }

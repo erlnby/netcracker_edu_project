@@ -1,7 +1,7 @@
 import Block from '../../modules/block';
 import {template, templateHolder} from "./executor.template";
 import CalculatorComponent from "../calculator/calculator.component";
-import qubits from "../../utils/qubits";
+import qubits from "../../services/qubit.service";
 
 export default class ExecutorComponent extends Block {
     static OPERATIONS = [
@@ -15,21 +15,48 @@ export default class ExecutorComponent extends Block {
     }
 
     render() {
-        let {executor, executor__container, executor__select} = template(this.props);
+        let {executor, executorContainer, executorSelect, executorButton} = template(this.props);
 
-        executor__select.addEventListener('change', event => {
-            let qubits = executor__container.querySelectorAll('.qubit');
-            qubits.forEach(qubit => CalculatorComponent.addQubit(qubit));
+        executorSelect.addEventListener('change', event => {
+            this.clearQubits(executorContainer)
 
             let value = event.target.value;
             let place = ExecutorComponent.OPERATIONS.find(operation => operation.name === value).place;
+            this.place = place;
+            this.size = 0;
 
-            executor__container.innerHTML = '';
+            executorContainer.innerHTML = '';
             for (let i = 0; i < place; i++) {
-                executor__container.append(templateHolder());
+                executorContainer.append(templateHolder());
             }
+
+            executorButton.classList.remove('_hidden');
         });
 
+        executorButton.addEventListener('click', () => {
+            this.clearQubits(executorContainer);
+        });
+
+        executor.addEventListener('executor-add', () => {
+            this.size++;
+            this.sizeChange(executorButton);
+        })
+
+        executor.addEventListener('executor-remove', () => {
+            this.size--;
+            this.sizeChange(executorButton);
+        })
+
+
         return executor;
+    }
+
+    clearQubits(container) {
+        let qubits = container.querySelectorAll('.qubit');
+        qubits.forEach(qubit => qubit.dispatchEvent(new Event('qubit-remove')));
+    }
+
+    sizeChange(button) {
+       button.disabled = this.size !== this.place;
     }
 }
