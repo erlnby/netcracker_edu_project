@@ -1,4 +1,5 @@
 import createElement from "../../utils/createElement";
+import SizerComponent from "../sizer/sizer.component";
 
 export const template = function (ctx) {
     let start = createElement('div', ['start']);
@@ -7,10 +8,14 @@ export const template = function (ctx) {
 
     let startButton = createElement('button', ['start__button'], 'Try It');
 
-    start.append(startText, startButton);
+    let startSizer = createElement('div', ['start__sizer'])
+    startSizer.append(new SizerComponent().render())
+
+    start.append(startText, startButton, startSizer);
     return {
         start,
         startButton,
-        startText
+        startText,
+        startSizer
     };
 }

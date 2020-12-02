@@ -4,7 +4,7 @@ export function template(ctx) {
     let form = createElement('form', ['form']);
 
     let formTitle = createElement('div', ['form__title']);
-    formTitle.innerHTML = ctx.title;
+    formTitle.textContent = ctx.title;
     form.append(formTitle);
 
     ctx.fields.forEach((value) => {
