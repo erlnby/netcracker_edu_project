@@ -10,14 +10,13 @@ export default class StartComponent extends Block {
             let helpShown = localStorage.getItem('helpShown');
 
             setTimeout(() => {
-                startButton.removeEventListener('click', f);
                 if (helpShown) {
                     router.go('/calculator');
                 } else {
                     localStorage.setItem('helpShown', true);
                     router.go('/helper');
                 }
-                startButton.removeEventListener('click', f);
+                start.style.removeProperty('opacity');
 
             }, 1000)
         });

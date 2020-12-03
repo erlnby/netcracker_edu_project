@@ -1,14 +1,23 @@
 .header {
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
 
     background-color: var(--main-color);
     cursor: default;
 
     &__text {
-        padding: 10px 20px;
         font-size: 20px;
         color: @custom-white;
         user-select: none;
+    }
+
+    &__help {
+        cursor: pointer;
+        color: @custom-white;
     }
 }
 

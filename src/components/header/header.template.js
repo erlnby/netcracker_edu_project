@@ -5,7 +5,9 @@ export function template(ctx) {
 
     let headerText = createElement('div', ['header__text'], 'Simple Quantum Calculator');
 
-    header.append(headerText);
-    return header;
+    let headerHelp = createElement('div', ['header__help'], 'Help');
+
+    header.append(headerText, headerHelp);
+    return {header, headerHelp};
 }
 

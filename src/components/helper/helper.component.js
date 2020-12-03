@@ -9,7 +9,7 @@ export default class HelperComponent extends Block {
             helper.style.opacity = 0;
 
             setTimeout(() => {
-                helper.removeEventListener('click', f);
+                helper.style.removeProperty('opacity');
                 router.go('/calculator');
             }, 1000)
         });
