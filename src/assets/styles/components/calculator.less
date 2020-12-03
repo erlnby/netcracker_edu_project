@@ -16,7 +16,7 @@
             transition: box-shadow 0.3s ease-out;
 
             &:hover {
-                box-shadow: 0 0 5px rgba(0,0,0,.3);
+                box-shadow: 0 0 5px @custom-shadow;
             }
 
             &:not(:last-child) {
@@ -38,7 +38,7 @@
         align-items: center;
 
         position: absolute;
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: @custom-shadow;
     }
 
     &__executor {

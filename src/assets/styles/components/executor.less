@@ -8,7 +8,7 @@
         height: 50px;
 
         font-size: 20px;
-        border: 2px solid black;
+        border: 2px solid @custom-black;
         border-radius: 5px;
         outline: none;
 
@@ -40,7 +40,7 @@
             border: none;
 
             &:hover {
-                box-shadow: 0 0 5px rgba(0,0,0,.3);
+                box-shadow: 0 0 5px @custom-shadow;
             }
         }
 
@@ -58,7 +58,7 @@
         cursor: pointer;
 
         color: @custom-white;
-        background-color: @custom-green;
+        background-color: var(--main-color);
 
         &:disabled {
             background-color: @custom-gray;
@@ -71,7 +71,7 @@
         transition: box-shadow 0.3s ease-out;
 
         &:hover:enabled {
-            box-shadow: 0 0 5px rgba(0,0,0,.3);
+            box-shadow: 0 0 5px @custom-shadow;
         }
     }
 }

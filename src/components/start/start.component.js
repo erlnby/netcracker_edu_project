@@ -7,10 +7,18 @@ export default class StartComponent extends Block {
 
         startButton.addEventListener('click', function f() {
             start.style.opacity = 0;
+            let helpShown = localStorage.getItem('helpShown');
 
             setTimeout(() => {
                 startButton.removeEventListener('click', f);
-                router.go('/calculator');
+                if (helpShown) {
+                    router.go('/calculator');
+                } else {
+                    localStorage.setItem('helpShown', true);
+                    router.go('/helper');
+                }
+                startButton.removeEventListener('click', f);
+
             }, 1000)
         });
 
