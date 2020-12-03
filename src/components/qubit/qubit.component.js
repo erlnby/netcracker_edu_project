@@ -125,7 +125,7 @@ export default class QubitComponent extends Block {
                 document.addEventListener('mousemove', onMouseMove);
 
                 qubit.onmouseup = function () {
-                    qubit.style = '';
+                    qubit.style.position = 'static';
                     self.endMove(parent)
 
                     if (currentHolder) {
@@ -145,6 +145,8 @@ export default class QubitComponent extends Block {
                         self.abortMove(parent)
                     }
 
+
+                    console.log(document.body.removeChild(qubit))
                     document.removeEventListener('mousemove', onMouseMove);
                     qubit.onmouseup = null;
                 };

@@ -26,9 +26,9 @@ export default class CalculatorComponent extends Block {
                         angle: Number(values.direction)
                     }
 
-                    QubitService.add(qubit);
+                    let value = QubitService.add(qubit);
 
-                    let qubitElement = templateQubitsItem({value: qubit});
+                    let qubitElement = templateQubitsItem({value});
 
                     calculatorQubits.lastChild.before(qubitElement);
                     let form = calculator.querySelector('.calculator__form');

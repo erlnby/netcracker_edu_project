@@ -15,6 +15,15 @@ export default class QubitService {
         localStorage.setItem('qubits', JSON.stringify(qubits));
     }
 
+    static get(id) {
+        return this.getAll().find(qubit => qubit.id == id);
+    }
+
+    static update(qubit) {
+        this.remove(qubit.id);
+        this.add(qubit);
+    }
+
     static add(qubit) {
         let qubits = this.getAll();
         let id = 0;
@@ -28,6 +37,7 @@ export default class QubitService {
         })
 
         this._sync(qubits);
+        return this.get(id)
     }
 
     static remove(id) {

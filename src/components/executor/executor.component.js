@@ -2,6 +2,7 @@ import Block from '../../modules/block';
 import {template, templateHolder} from "./executor.template";
 import CalculatorComponent from "../calculator/calculator.component";
 import qubits from "../../services/qubit.service";
+import QubitService from "../../services/qubit.service";
 
 export default class ExecutorComponent extends Block {
     static OPERATIONS = [
@@ -31,9 +32,32 @@ export default class ExecutorComponent extends Block {
             }
 
             executorButton.classList.remove('_hidden');
+            this.action = value;
         });
 
         executorButton.addEventListener('click', () => {
+            let worker = new Worker('../../worker.js')
+            let qubits = Array.from(executorContainer.querySelectorAll('.qubit'))
+                .map(qubit => qubit.dataset.qubitId)
+                .map(id => QubitService.get(id));
+
+            console.log(qubits);
+
+            worker.postMessage({
+                action: this.action.toLowerCase(),
+                qubits
+            });
+
+            worker.onmessage = function(e) {
+                let qubits = e.data;
+                qubits.forEach(qubit => {
+                    QubitService.update(qubit)
+                    let element = document.querySelector(`.qubit[data-qubit-id="${qubit.id}"] .qubit__image`)
+                    element.style.transform = `rotate(${qubit.angle}deg)`;
+                });
+
+            }
+
             this.clearQubits(executorContainer);
         });
 
