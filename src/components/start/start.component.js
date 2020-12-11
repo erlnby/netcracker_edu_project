@@ -7,9 +7,11 @@ export default class StartComponent extends Block {
 
         startButton.addEventListener('click', function f() {
             start.style.opacity = 0;
-            let helpShown = localStorage.getItem('helpShown');
+        });
 
-            setTimeout(() => {
+        start.addEventListener('transitionend', (event) => {
+            if (event.target === start) {
+                let helpShown = localStorage.getItem('helpShown');
                 if (helpShown) {
                     router.go('/calculator');
                 } else {
@@ -17,9 +19,8 @@ export default class StartComponent extends Block {
                     router.go('/helper');
                 }
                 start.style.removeProperty('opacity');
-
-            }, 1000)
-        });
+            }
+        })
 
         return start;
     }

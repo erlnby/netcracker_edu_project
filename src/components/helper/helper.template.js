@@ -8,6 +8,8 @@ export function template(ctx) {
         src: image,
     });
 
-    helper.append(helperImage);
-    return helper;
+    let helperButton = createElement('button', ['helper__button'], 'Next')
+
+    helper.append(helperImage, helperButton);
+    return {helper, helperButton};
 }

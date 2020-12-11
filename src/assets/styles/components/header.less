@@ -15,9 +15,24 @@
         user-select: none;
     }
 
+    &__container {
+        display: flex;
+    }
+
+    &__theme {
+        margin-right: 20px;
+
+        cursor: pointer;
+        background: linear-gradient(90deg, #FAD961 0%, #F76B1C 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+
     &__help {
         cursor: pointer;
         color: @custom-white;
+        font-weight: bold;
     }
 }
 

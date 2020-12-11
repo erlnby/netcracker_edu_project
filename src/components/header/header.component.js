@@ -8,12 +8,13 @@ export default class HeaderComponent extends Block {
     }
 
     render() {
-        let {header, headerHelp} = template();
+        let {header, headerHelp, headerTheme} = template();
 
         let root = document.documentElement;
-        header.addEventListener('click', event => {
+        headerTheme.addEventListener('click', event => {
             let color = randomColor();
             root.style.setProperty('--main-color', '#' + color);
+            // document.body.style.setProperty('background', 'var(--main-color)');
         })
 
         headerHelp.addEventListener('click', event => {

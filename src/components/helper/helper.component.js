@@ -3,15 +3,17 @@ import {template} from "./helper.template";
 
 export default class HelperComponent extends Block {
     render() {
-        let helper = template();
+        let {helper, helperButton} = template();
 
-        helper.addEventListener('click', function f() {
+        helperButton.addEventListener('click', function() {
             helper.style.opacity = 0;
+        });
 
-            setTimeout(() => {
+        helper.addEventListener('transitionend', (event) => {
+            if (event.target === helper) {
                 helper.style.removeProperty('opacity');
                 router.go('/calculator');
-            }, 1000)
+            }
         });
 
         return helper;
